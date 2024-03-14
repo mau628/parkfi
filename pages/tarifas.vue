@@ -15,7 +15,7 @@
                         <b-input icon="timer" v-model="tarifa.Tiempo" type="number" ref="inputRefs"></b-input>
                     </td>
                     <td>
-                        <b-input icon="cash" v-model="tarifa.Valor" type="number"></b-input>
+                        <b-input icon="cash" v-model="tarifa.Precio" type="number"></b-input>
                     </td>
                     <td>
                         <b-button type="is-danger" @click="store.quitarTarifa(index)" icon-right="delete"></b-button>
@@ -34,7 +34,7 @@ const inputRefs = ref([])
 watch(store, () => store.actualizarLocalStorage(), { deep: true })
 
 function agregarTarifa() {
-    store.agregarTarifa({ Tiempo: 0, Valor: 0 })
+    store.agregarTarifa({ Tiempo: 0, Precio: 0 })
     nextTick(() => {
         const index = store.tarifas.length - 1
         const input = inputRefs.value[index]
