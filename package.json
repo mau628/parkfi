@@ -16,6 +16,7 @@
     "@pinia/nuxt": "^0.5.1",
     "nuxt": "^3.10.2",
     "pinia": "^2.1.7",
+    "qrcode-reader-vue3": "^3.1.2",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5"
   },

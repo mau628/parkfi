@@ -14,7 +14,7 @@
                     </b-datetimepicker>
                 </b-field>
                 <b-field label="$Salida" expanded>
-                    <b-datetimepicker v-model="horaSalida" rounded placeholder="$Elegir..." icon="calendar-today" inline
+                    <b-datetimepicker v-model="horaEgreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
                         @change="calcularTarifa">
                     </b-datetimepicker>
                 </b-field>
@@ -62,24 +62,36 @@
 <script lang="ts" setup>
 import type Tarifa from '~/types/tarifa';
 
+const props = defineProps({
+    propHoraIngreso: Date,
+    propHoraEgreso: Date
+})
+
+let estaCargando = true
+
 let verDetalle = ref(false)
 let minutosTotales = ref(0)
 let horaIngreso = ref<Date>()
-let horaSalida = ref<Date>()
+let horaEgreso = ref<Date>()
+
+if (props.propHoraIngreso) horaIngreso.value = props.propHoraIngreso
+if (props.propHoraEgreso) horaEgreso.value = props.propHoraEgreso
+const hayValores = computed(() => horaIngreso.value !== undefined && horaEgreso.value !== undefined)
 
 const store = useTarifasStore()
 const hayTarifas = ref(store.listaTarifas.length > 0)
 const detalleCobro = ref<Array<{ tiempo: number, precioUnitario: number, subtotal: number }>>()
 
 watch(horaIngreso, () => calcularTarifa())
-watch(horaSalida, () => calcularTarifa())
+watch(horaEgreso, () => calcularTarifa())
 
 const montoTotalLegible = computed(() => {
     return `$Q${detalleCobro.value?.reduce((acc, item) => acc + item.subtotal, 0)}`
 })
 
 const calcularTarifa = () => {
-    if (horaIngreso.value === undefined || horaSalida.value === undefined) return
+    if (estaCargando || !hayValores.value) return
+
     if (detalleCobro.value) {
         detalleCobro.value.splice(0, detalleCobro.value.length)
     }
@@ -87,7 +99,7 @@ const calcularTarifa = () => {
         detalleCobro.value = []
 
     const tarifas = _reverse(_sortBy(store.tarifas, 'Tiempo')) as Tarifa[]
-    const segundos = (horaSalida.value.getTime() - horaIngreso.value.getTime()) / 1000
+    const segundos = ((horaEgreso.value?.getTime() ?? 0) - (horaIngreso.value?.getTime() ?? 0)) / 1000
 
     let unidadesTiempo = 0
     let precio = 0
@@ -118,4 +130,9 @@ const tiempoLegible = (valor: number) => {
     const minutosString = minutos < 10 ? `0${minutos}` : minutos
     return `${horasString}:${minutosString}`
 }
+
+estaCargando = false
+
+if (hayValores) calcularTarifa()
+
 </script>
