@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@intosoft/custoqr": "^0.0.7",
     "@mdi/font": "^7.4.47",
     "@ntohq/buefy-next": "^0.1.2",
     "@pinia/nuxt": "^0.5.1",

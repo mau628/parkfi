@@ -1,5 +1,7 @@
 <template>
     <div>
-        <calculo />
+        <!--<calculo />-->
+        <hr>
+        <egreso />
     </div>
 </template>

@@ -56,21 +56,19 @@
                 </tfoot>
             </table>
         </section>
-        <b-loading :is-full-page="true" v-model="isLoading"></b-loading>
     </div>
 </template>
 
 <script lang="ts" setup>
 import type Tarifa from '~/types/tarifa';
 
-let isLoading = ref(true)
 let verDetalle = ref(false)
 let minutosTotales = ref(0)
+let horaIngreso = ref<Date>()
+let horaSalida = ref<Date>()
 
 const store = useTarifasStore()
 const hayTarifas = ref(store.listaTarifas.length > 0)
-const horaIngreso = ref<Date>()
-const horaSalida = ref<Date>()
 const detalleCobro = ref<Array<{ tiempo: number, precioUnitario: number, subtotal: number }>>()
 
 watch(horaIngreso, () => calcularTarifa())
@@ -81,8 +79,7 @@ const montoTotalLegible = computed(() => {
 })
 
 const calcularTarifa = () => {
-    if (horaIngreso.value === undefined || horaSalida.value === undefined || isLoading.value) return
-    isLoading.value = true
+    if (horaIngreso.value === undefined || horaSalida.value === undefined) return
     if (detalleCobro.value) {
         detalleCobro.value.splice(0, detalleCobro.value.length)
     }
@@ -112,8 +109,6 @@ const calcularTarifa = () => {
         detalleCobro.value.push({ tiempo: minutos, precioUnitario: tarifas[tarifas.length - 1].Precio, subtotal: 1 * tarifas[tarifas.length - 1].Precio })
         minutos = 0
     }
-
-    isLoading.value = false
 }
 
 const tiempoLegible = (valor: number) => {
@@ -123,6 +118,4 @@ const tiempoLegible = (valor: number) => {
     const minutosString = minutos < 10 ? `0${minutos}` : minutos
     return `${horasString}:${minutosString}`
 }
-
-isLoading.value = false
 </script>
