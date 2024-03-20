@@ -7,15 +7,18 @@
     <div v-else>
         <section>
             <h3 class="subtitle is-3">$Ingreso/Egreso</h3>
+            <div v-if="!!matricula">
+                {{ matricula }}
+            </div>
             <b-field grouped>
                 <b-field label="$Ingreso" expanded>
-                    <b-datetimepicker v-model="horaIngreso" rounded placeholder="$Elegir..." icon="calendar-today"
-                        inline @change="calcularTarifa">
+                    <b-datetimepicker v-model="valorHoraIngreso" rounded placeholder="$Elegir..." icon="calendar-today"
+                        inline @change="calcularTarifa" :disabled="horaIngresoDesactivada">
                     </b-datetimepicker>
                 </b-field>
                 <b-field label="$Salida" expanded>
-                    <b-datetimepicker v-model="horaEgreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
-                        @change="calcularTarifa">
+                    <b-datetimepicker v-model="valorHoraEgreso" rounded placeholder="$Elegir..." icon="calendar-today"
+                        inline @change="calcularTarifa">
                     </b-datetimepicker>
                 </b-field>
             </b-field>
@@ -63,27 +66,28 @@
 import type Tarifa from '~/types/tarifa';
 
 const props = defineProps({
-    propHoraIngreso: Date,
-    propHoraEgreso: Date
+    matricula: String,
+    horaIngreso: Date
 })
 
 let estaCargando = true
 
 let verDetalle = ref(false)
 let minutosTotales = ref(0)
-let horaIngreso = ref<Date>()
-let horaEgreso = ref<Date>()
+let valorHoraIngreso = ref<Date>()
+let valorHoraEgreso = ref<Date>()
 
-if (props.propHoraIngreso) horaIngreso.value = props.propHoraIngreso
-if (props.propHoraEgreso) horaEgreso.value = props.propHoraEgreso
-const hayValores = computed(() => horaIngreso.value !== undefined && horaEgreso.value !== undefined)
+if (props.horaIngreso) valorHoraIngreso.value = props.horaIngreso
 
 const store = useTarifasStore()
 const hayTarifas = ref(store.listaTarifas.length > 0)
 const detalleCobro = ref<Array<{ tiempo: number, precioUnitario: number, subtotal: number }>>()
 
-watch(horaIngreso, () => calcularTarifa())
-watch(horaEgreso, () => calcularTarifa())
+const horaIngresoDesactivada = computed(() => !!valorHoraIngreso.value)
+const hayValores = computed(() => valorHoraIngreso.value !== undefined && valorHoraEgreso.value !== undefined)
+
+watch(valorHoraIngreso, () => calcularTarifa())
+watch(valorHoraEgreso, () => calcularTarifa())
 
 const montoTotalLegible = computed(() => {
     return `$Q${detalleCobro.value?.reduce((acc, item) => acc + item.subtotal, 0)}`
@@ -99,7 +103,7 @@ const calcularTarifa = () => {
         detalleCobro.value = []
 
     const tarifas = _reverse(_sortBy(store.tarifas, 'Tiempo')) as Tarifa[]
-    const segundos = ((horaEgreso.value?.getTime() ?? 0) - (horaIngreso.value?.getTime() ?? 0)) / 1000
+    const segundos = ((valorHoraEgreso.value?.getTime() ?? 0) - (valorHoraIngreso.value?.getTime() ?? 0)) / 1000
 
     let unidadesTiempo = 0
     let precio = 0

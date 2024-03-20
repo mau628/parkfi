@@ -1,30 +1,13 @@
 <template>
   <div>
     <div v-if="hayIngreso">
-      <b-field grouped>
-        <b-field label="$Matricula" label-position="on-border">
-          <b-input required v-model="matricula" placeholder="ABC123" disabled></b-input>
-        </b-field>
-      </b-field>
-      <b-field label="$Hora de ingreso" label-position="on-border">
-        <b-datetimepicker v-model="horaIngreso" rounded placeholder="$Elegir..." icon="calendar-today" inline disabled>
-        </b-datetimepicker>
-      </b-field>
-      <b-field label="$Hora de egreso" label-position="on-border">
-        <b-datetimepicker v-model="horaEgreso" rounded placeholder="$Elegir..." icon="calendar-today" inline>
-        </b-datetimepicker>
-      </b-field>
-      <b-button type="is-primary" @click="calcularTarifa">$Calcular tarifa</b-button>
+      <calculo :hora-ingreso="horaIngreso" :matricula="matricula" />
     </div>
     <div v-else>
       <b-field>
         <b-switch v-model="mostrarCamara">$Abrir camara</b-switch>
       </b-field>
       <qrcode-stream @decode="leerQR" v-if="mostrarCamara"></qrcode-stream>
-    </div>
-
-    <div v-if="mostrarCalculo">
-      <calculo :prop-hora-ingreso="horaIngreso" :prop-hora-egreso="horaEgreso" />
     </div>
   </div>
 </template>
