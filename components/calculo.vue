@@ -79,8 +79,8 @@ let valorHoraEgreso = ref<Date>()
 
 if (props.horaIngreso) valorHoraIngreso.value = props.horaIngreso
 
-const store = useTarifasStore()
-const hayTarifas = ref(store.listaTarifas.length > 0)
+const store = useConfiguracionStore()
+const hayTarifas = ref(store.tarifas.length > 0)
 const detalleCobro = ref<Array<{ tiempo: number, precioUnitario: number, subtotal: number }>>()
 
 const hayHoraIngreso = computed(() => !!valorHoraIngreso.value)

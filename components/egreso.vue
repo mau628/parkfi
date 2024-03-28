@@ -1,5 +1,6 @@
 <template>
   <div>
+    <titulo />
     <div v-if="horaIngreso">
       <calculo :hora-ingreso="horaIngreso" :matricula="matricula" />
     </div>

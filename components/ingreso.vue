@@ -1,5 +1,6 @@
 <template>
   <div>
+    <titulo subtitulo="$Registro del ingreso" />
     <h3 class="subtitle is-3">$Ingreso</h3>
     <b-field grouped>
       <b-field label="$Matricula" label-position="on-border">

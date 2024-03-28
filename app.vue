@@ -7,16 +7,22 @@
       </b-navbar-item>
     </template>
     <template #start>
-      <b-navbar-item tag="router-link" :to="{ path: '/tarifas' }">
-        Tarifas
+      <b-navbar-item tag="router-link" :to="{ path: '/ingreso' }">
+        $Ingreso
+      </b-navbar-item>
+      <b-navbar-item tag="router-link" :to="{ path: '/egreso' }">
+        $Egreso
       </b-navbar-item>
     </template>
 
     <template #end>
+      <b-navbar-item tag="router-link" :to="{ path: '/tarifas' }">
+        $Tarifas
+      </b-navbar-item>
       <b-navbar-item tag="div">
         <div class="buttons">
           <a class="button is-success">
-            Colaborar
+            $Colaborar
           </a>
         </div>
       </b-navbar-item>
@@ -25,13 +31,8 @@
   <br>
   <section>
     <div class="container">
-      <div v-if="hayRegresar">
-        <NuxtLink to="/" class="button is-info">
-          $Regresar
-        </NuxtLink>
-        <br>
-        <br>
-      </div>
+      <br>
+      <br>
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
@@ -39,7 +40,15 @@
   </section>
 </template>
 
-<script lang="ts" setup>
-const route = useRoute()
-const hayRegresar = computed(() => route.name !== 'index')
-</script>
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.2s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
+</style>

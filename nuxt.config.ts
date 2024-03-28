@@ -1,7 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
   devtools: { enabled: true },
-  ssr: false,
+  lodash: {
+    prefix: "_",
+    prefixSkip: ["string"],
+    upperAfterPrefix: false,
+    exclude: ["map"]
+  },
   modules: [
     '@pinia/nuxt',
     'nuxt-lodash',
@@ -9,10 +17,5 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ['./stores/**', './custom-folder/stores/**'],
   },
-  lodash: {
-    prefix: "_",
-    prefixSkip: ["string"],
-    upperAfterPrefix: false,
-    exclude: ["map"]
-  }
+  ssr: false,
 })
