@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="hayIngreso">
+    <div v-if="horaIngreso">
       <calculo :hora-ingreso="horaIngreso" :matricula="matricula" />
     </div>
     <div v-else>
@@ -16,26 +16,26 @@
 import { QrcodeStream } from 'qrcode-reader-vue3'
 
 const mostrarCamara = ref(false)
-const valorQR = ref('')
 const matricula = ref('')
 const horaIngreso = ref<Date | null>(null)
-const horaEgreso = ref<Date | null>(null)
-const hayIngreso = ref(false)
-const mostrarCalculo = ref(false)
 
 const leerQR = (valor: any) => {
-  valorQR.value = valor
   mostrarCamara.value = false
 
   const valores = valor.split('^')
-  matricula.value = valores[0]
-  horaIngreso.value = new Date(parseInt(valores[1]))
-  hayIngreso.value = true
-  horaEgreso.value = new Date()
-}
+  if (valores.length !== 2) {
+    alert('$QR invalido')
+    return
+  }
 
-const calcularTarifa = () => {
-  mostrarCalculo.value = (!!horaEgreso.value && !!horaIngreso.value)
+  const fechaIngreso = valores[1]
+  if (fechaIngreso! instanceof Date || !isFinite(+fechaIngreso)) {
+    alert('$QR invalido')
+    return
+  }
+
+  matricula.value = valores[0]
+  horaIngreso.value = new Date(parseInt(fechaIngreso))
 }
 
 </script>

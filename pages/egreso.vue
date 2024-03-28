@@ -1,3 +1,3 @@
 <template>
-  <ingreso />
+  <egreso />
 </template>

@@ -25,9 +25,21 @@
   <br>
   <section>
     <div class="container">
+      <div v-if="hayRegresar">
+        <NuxtLink to="/" class="button is-info">
+          $Regresar
+        </NuxtLink>
+        <br>
+        <br>
+      </div>
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
     </div>
   </section>
 </template>
+
+<script lang="ts" setup>
+const route = useRoute()
+const hayRegresar = computed(() => route.name !== 'index')
+</script>
