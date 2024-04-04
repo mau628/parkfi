@@ -1,5 +1,5 @@
 <template>
-  <b-navbar fixed-top="true" type="is-light">
+  <b-navbar :fixed-top="true" type="is-light">
     <template #brand>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <b-icon icon="car-brake-parking" type="is-link">
@@ -28,16 +28,13 @@
       </b-navbar-item>
     </template>
   </b-navbar>
-  <br>
-  <section>
+  <div class="block">
     <div class="container">
-      <br>
-      <br>
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
     </div>
-  </section>
+  </div>
 </template>
 
 <style>

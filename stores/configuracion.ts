@@ -6,6 +6,7 @@ function consultarLocalStorage(): Configuracion {
   var result: Configuracion
   result = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY) || '{}') as Configuracion;
   result.Tarifas = _sortBy(result.Tarifas, 'Tiempo')
+  result.Nombre = result.Nombre || 'Parkfi'
   return result
 }
 

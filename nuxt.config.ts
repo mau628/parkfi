@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },
+  css: ["~/assets/css/global.scss"],
   devtools: { enabled: true },
   lodash: {
     prefix: "_",

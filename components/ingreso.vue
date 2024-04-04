@@ -1,29 +1,45 @@
 <template>
-  <div>
+  <section>
     <titulo subtitulo="$Registro del ingreso" />
-    <h3 class="subtitle is-3">$Ingreso</h3>
-    <b-field grouped>
-      <b-field label="$Matricula" label-position="on-border">
-        <b-input v-model="matricula" placeholder="ABC123" v-focus></b-input>
-      </b-field>
-    </b-field>
-    <b-field label="$Hora de ingreso" label-position="on-border">
-      <b-datetimepicker v-model="horaIngreso" rounded placeholder="$Elegir..." icon="calendar-today" inline>
-      </b-datetimepicker>
-    </b-field>
-    <b-button type="is-primary" @click="generarQR">$Generar</b-button>
-    <b-button type="is-danger" @click="limpiarTodo">$Limpiar</b-button>
-    <b-button type="is-info" @click="horaIngresoEsAhora">$Ahora</b-button>
+    <div class="columns is-mobile is-centered">
+      <div class="column is-4-desktop">
+        <h3 class="subtitle is-3">$Ingreso</h3>
+        <b-field grouped>
+          <b-field label="$Matricula" label-position="on-border">
+            <b-input v-model="matricula" placeholder="ABC123" v-focus></b-input>
+          </b-field>
+        </b-field>
+        <b-field label="$Hora de ingreso" label-position="on-border">
+          <b-datetimepicker v-model="horaIngreso" rounded placeholder="$Elegir..." icon="calendar-today" inline>
+          </b-datetimepicker>
+        </b-field>
+      </div>
+    </div>
+    <div class="columns is-mobile is-centered">
+      <div class="column is-2-desktop is-4-mobile">
+        <b-button type="is-primary" @click="generarQR" icon-left="receipt-text-clock-outline">$Generar</b-button>
+      </div>
+      <div class="column is-2-desktop is-4-mobile">
+        <b-button type="is-danger" @click="limpiarTodo" icon-left="eraser">$Limpiar</b-button>
+      </div>
+      <div class="column is-2-desktop is-4-mobile">
+        <b-button type="is-info" @click="horaIngresoEsAhora" icon-left="clock-in">$Ahora</b-button>
+      </div>
+    </div>
     <div v-html="svgString"></div>
-  </div>
+    {{ codigoParqueo }}
+  </section>
 </template>
 
 <script lang="ts" setup>
 import { generateSVGString } from '@intosoft/custoqr';
 
+const store = useConfiguracionStore()
+
 let horaIngreso = ref<Date | null>(new Date())
 let svgString = ref('')
 let matricula = ref('')
+let codigoParqueo = ref('')
 
 const configQR = {
   "length": 300,
@@ -56,9 +72,11 @@ const configQR = {
 } as Config
 
 const generarQR = () => {
-  const valorMatricula = matricula.value ?? '';
+  console.log(store.configuracion.Nombre)
+  let prefijo = !!matricula.value ? matricula.value : store.configuracion.Nombre
   if (!horaIngreso.value) return
-  configQR.value = `${valorMatricula}^${horaIngresoEpoch.value}`
+  codigoParqueo.value = horaIngresoEpoch.value
+  configQR.value = `${prefijo}^${codigoParqueo.value}`
   svgString.value = generateSVGString(configQR)
 }
 
@@ -74,6 +92,7 @@ const limiparQR = () => {
 }
 
 const horaIngresoEsAhora = () => {
+  limpiarTodo()
   horaIngreso.value = new Date()
 }
 
