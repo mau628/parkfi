@@ -11,6 +11,7 @@ function consultarLocalStorage(): Configuracion {
   result.Tarifas = _sortBy(result.Tarifas, 'Tiempo') as Tarifa[]
   result.Nombre = result.Nombre || 'Parkfi'
   result.UsarQR = result.UsarQR || false
+  result.AutoImprimir = result.AutoImprimir || false
   return result
 }
 

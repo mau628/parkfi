@@ -1,11 +1,20 @@
 <template>
   <section>
-    <h3 class="subtitle is-3">Tarifas</h3>
+    <h3 class="subtitle is-3">$Configuración</h3>
+    <b-field label="$Nombre">
+      <b-input v-model="store.configuracion.Nombre"></b-input>
+    </b-field>
+    <b-field>
+      <b-switch v-model="store.configuracion.UsarQR">$Usar QR</b-switch>
+    </b-field>
+    <b-field>
+      <b-switch v-model="store.configuracion.AutoImprimir">$Imprimir Automaticamente</b-switch>
+    </b-field>
     <table class="table">
       <thead>
         <tr>
-          <th>Tiempo (Minutos)</th>
-          <th>Precio</th>
+          <th>$Tiempo (Minutos)</th>
+          <th>$Precio</th>
           <th></th>
         </tr>
       </thead>
