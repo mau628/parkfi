@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(tarifa, index) in store.tarifas">
+        <tr v-for="(tarifa, index) in store.configuracion.Tarifas">
           <td>
             <b-input icon="timer" v-model="tarifa.Tiempo" type="number" ref="inputRefs"></b-input>
           </td>
@@ -36,7 +36,7 @@ watch(store, () => store.actualizarLocalStorage(), { deep: true })
 function agregarTarifa() {
   store.agregarTarifa({ Tiempo: 0, Precio: 0 })
   nextTick(() => {
-    const index = store.tarifas.length - 1
+    const index = store.configuracion.Tarifas.length - 1
     const input = inputRefs.value[index]
     if (input) input.focus()
   })
