@@ -36,6 +36,7 @@
 <script lang="ts" setup>
 import { QrcodeStream } from 'qrcode-reader-vue3'
 
+const { $tokenAEpoch } = useNuxtApp()
 const store = useConfiguracionStore()
 const mostrarCamara = ref(false)
 const horaIngreso = ref<Date | null>(null)

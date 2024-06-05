@@ -61,7 +61,7 @@
 import { generateSVGString } from '@intosoft/custoqr';
 
 const store = useConfiguracionStore()
-
+const { $epochAToken } = useNuxtApp()
 const horaIngreso = ref<Date | null>(new Date())
 const svgString = ref('')
 const matricula = ref('')
