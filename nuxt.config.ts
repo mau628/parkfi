@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
-    'nuxt-lodash',
+    'nuxt-lodash'
   ],
   pinia: {
     storesDirs: ['./stores/**', './custom-folder/stores/**'],

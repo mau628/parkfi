@@ -13,15 +13,8 @@
         "group": "1 PROGRAM:NUXT",
         "order": 3
       },
-      "request": "launch",
-      "url": "http://localhost:3000",
+      "request": "attach",
       "webRoot": "${workspaceFolder}",
-      "preLaunchTask": "nuxt:dev",
-      "userDataDir": "${workspaceFolder}/.vscode/vscode-browser-debug-userdatadir"
-      // "userDataDir": "${env:HOME}/.vscode/vscode-chrome-debug-userdatadir"
-      // This config is to always use the same configuration for the chrome app (system wide)
-      // therefore you can install the prefered extensions once and they will stay!
-      // Taken from here: https://stackoverflow.com/questions/51725854/run-vscode-chrome-debugger-with-its-extensions
     },
 
     {
@@ -36,18 +29,6 @@
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--", "-o"]
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Debug Nuxt: Server & WebApp",
-      "presentation": {
-        "hidden": false,
-        "group": "1 PROGRAM:NUXT",
-        "order": 1
-      },
-      "stopAll": true,
-      "configurations": ["Debug Nuxt: Server", "Debug Nuxt: WebApp"]
     }
   ]
 }

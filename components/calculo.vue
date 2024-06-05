@@ -11,12 +11,20 @@
         <h2 class="subtitle is-2">{{ matricula }}</h2>
       </div>
       <b-field grouped>
-        <b-field label="$Ingreso" expanded>
+        <b-field expanded>
+          <template #label>
+            <b-icon icon="clock-in" size="is-medium" type="is-success"></b-icon>
+            $Ingreso
+          </template>
           <b-datetimepicker v-model="valorHoraIngreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
             @change="calcularTarifa" :disabled="hayHoraIngreso">
           </b-datetimepicker>
         </b-field>
-        <b-field label="$Egreso" expanded>
+        <b-field>
+          <template #label>
+            <b-icon icon="clock-out" size="is-medium" type="is-danger"></b-icon>
+            $Egreso
+          </template>
           <b-datetimepicker v-model="valorHoraEgreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
             @change="calcularTarifa">
           </b-datetimepicker>
@@ -25,8 +33,8 @@
     </section>
     <br>
     <section>
-      <h4 class="subtitle is-4">$Tiempo total (hh:mm) : {{ tiempoLegible(minutosTotales) }}</h4>
-      <h4 class="subtitle is-4">$Monto total: {{ montoTotalLegible }}</h4>
+      <h4 class="subtitle is-4"><b-icon icon="timer" size="is-small" type="is-info"></b-icon>&nbsp;{{ tiempoLegible(minutosTotales) }}<span class="is-size-7">(hh:mm)</span></h4>
+      <h4 class="subtitle is-4"><b-icon icon="cash-register" size="is-small" type="is-primary"></b-icon>&nbsp;{{ montoTotalLegible }}</h4>
       <b-field>
         <b-switch v-model="verDetalle">$Ver detalle</b-switch>
       </b-field>
@@ -48,7 +56,7 @@
           </tr>
         </tbody>
         <tfoot>
-          <tr>
+          <tr class="has-text-weight-bold">
             <td>
               {{ tiempoLegible(minutosTotales) }}
             </td>
@@ -80,7 +88,7 @@ let valorHoraEgreso = ref<Date>()
 if (props.horaIngreso) valorHoraIngreso.value = props.horaIngreso
 
 const store = useConfiguracionStore()
-const hayTarifas = ref(store.tarifas.length > 0)
+const hayTarifas = ref(store.configuracion.Tarifas.length > 0)
 const detalleCobro = ref<Array<{ tiempo: number, precioUnitario: number, subtotal: number }>>()
 
 const hayHoraIngreso = computed(() => !!valorHoraIngreso.value)
@@ -92,7 +100,7 @@ const montoTotalLegible = computed(() => {
 watch(valorHoraIngreso, () => calcularTarifa())
 watch(valorHoraEgreso, () => calcularTarifa())
 
-const tarifas = _reverse(_sortBy(store.tarifas, 'Tiempo')) as Tarifa[]
+const tarifas = _reverse(_sortBy(store.configuracion.Tarifas, 'Tiempo')) as Tarifa[]
 
 const calcularTarifa = () => {
   if (estaCargando || !hayValores.value) return
@@ -108,6 +116,7 @@ const calcularTarifa = () => {
   if (segundos < 0) {
     valorHoraEgreso.value = new Date()
     alert('$La hora de ingreso no puede ser mayor a la de egreso')
+    return
   }
 
   let unidadesTiempo = 0
