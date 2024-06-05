@@ -6,7 +6,8 @@
         <h3 class="subtitle is-3">$Ingreso</h3>
         <b-field grouped>
           <b-field label="$Matricula" label-position="on-border">
-            <b-input v-model.trim="matricula" placeholder="ABC123" v-focus ref="inputMatricula"></b-input>
+            <b-input v-model.trim="matricula" placeholder="ABC123" v-focus ref="inputMatricula"
+              :required="!usarQR"></b-input>
           </b-field>
         </b-field>
         <b-field label="$Hora de ingreso" label-position="on-border">
@@ -24,9 +25,9 @@
       </div>
     </div>
 
-    <div class="columns is-mobile is-centered" ref="divImpresion">
+    <div class="columns is-mobile is-centered" ref="divImpresion" v-show="mostrarImpresion">
       <div class="column is-4-desktop">
-        <div class="card" v-if="verCodigo">
+        <div class="card">
           <div class="card-content">
             <p class="title">
               <span v-if="!!store.configuracion.Nombre">
@@ -36,7 +37,7 @@
             <p class="subtitle">
               <small><time :datetime="horaIngresoLegible">{{ horaIngresoLegible }}</time></small>
               <br>
-              <strong>{{ token36 }}</strong>
+              <strong><code>{{ token36 }}</code></strong>
               <br>
               <small>
                 <span v-if="!!matricula">
@@ -68,7 +69,7 @@ const inputMatricula = ref()
 const divImpresion = ref()
 const usarQR = computed(() => store.configuracion.UsarQR)
 const autoImprimir = computed(() => store.configuracion.AutoImprimir)
-const verCodigo = ref(false)
+const mostrarImpresion = ref(false)
 const horaIngresoLegible = computed(() => {
   var fecha = horaIngreso.value?.toLocaleDateString([], {
     weekday: "long",
@@ -115,13 +116,17 @@ const configQR = {
 
 const generarCodigo = () => {
   if (!horaIngreso.value) return
-  verCodigo.value = true
 
-  if (!usarQR) return
-  const valoresQR = [store.configuracion.Nombre, matricula.value, token36.value]
-  configQR.value = valoresQR.join("^")
-  svgString.value = generateSVGString(configQR)
-
+  if (!usarQR.value && !matricula.value) {
+    alert('$Matricula requerida')
+    return
+  }
+  else {
+    const valoresQR = [store.configuracion.Nombre, matricula.value, token36.value]
+    configQR.value = valoresQR.join("^")
+    svgString.value = generateSVGString(configQR)
+  }
+  mostrarImpresion.value = true
   setTimeout(() => {
     if (autoImprimir.value) {
       imprimir()
@@ -133,9 +138,9 @@ const generarCodigo = () => {
 }
 
 const limpiarTodo = () => {
-  verCodigo.value = false
   matricula.value = ''
   horaIngreso.value = new Date()
+  mostrarImpresion.value = false
   limiparQR()
   if (inputMatricula.value) inputMatricula.value.focus()
 }
