@@ -7,7 +7,6 @@ const LOCALSTORAGE_KEY = 'configuracion'
 function consultarLocalStorage(): Configuracion {
   var result: Configuracion
   result = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY) || '{}') as Configuracion;
-  console.log({ leida: result })
   result.Tarifas = _sortBy(result.Tarifas, 'Tiempo') as Tarifa[]
   result.Nombre = result.Nombre || 'Parkfi'
   result.UsarQR = result.UsarQR || false
@@ -16,7 +15,6 @@ function consultarLocalStorage(): Configuracion {
 }
 
 function guardarLocalStorage(configuracion: Configuracion) {
-  console.log(configuracion)
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(configuracion))
 }
 

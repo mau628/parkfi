@@ -36,7 +36,7 @@
             <p class="subtitle">
               <small><time :datetime="horaIngresoLegible">{{ horaIngresoLegible }}</time></small>
               <br>
-              <strong>{{ horaIngresoEpoch }}</strong>
+              <strong>{{ token36 }}</strong>
               <br>
               <small>
                 <span v-if="!!matricula">
@@ -61,7 +61,6 @@
 import { generateSVGString } from '@intosoft/custoqr';
 
 const store = useConfiguracionStore()
-const { $epochAToken } = useNuxtApp()
 const horaIngreso = ref<Date | null>(new Date())
 const svgString = ref('')
 const matricula = ref('')
@@ -119,7 +118,7 @@ const generarCodigo = () => {
   verCodigo.value = true
 
   if (!usarQR) return
-  const valoresQR = [store.configuracion.Nombre, matricula.value, horaIngresoEpoch.value]
+  const valoresQR = [store.configuracion.Nombre, matricula.value, token36.value]
   configQR.value = valoresQR.join("^")
   svgString.value = generateSVGString(configQR)
 
@@ -156,16 +155,17 @@ const imprimir = () => {
   window.print()
 }
 
-let horaIngresoEpoch = computed(() => {
+const token36 = computed(() => {
   if (!horaIngreso.value) return ''
   const ms = horaIngreso.value.getTime()
   const s = Math.floor(ms / 1000)
   const m = Math.floor(s / 60)
-  return (m * 60).toString()
+  const token36 = m.toString(36).toUpperCase()
+  return token36
 })
 
 if (usarQR) {
-  watch(horaIngresoEpoch, limiparQR)
+  watch(token36, limiparQR)
   watch(matricula, limiparQR)
 }
 

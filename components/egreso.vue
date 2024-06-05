@@ -24,8 +24,7 @@
         </div>
         <div v-else>
           <b-field label="$Código">
-            <b-numberinput v-model="epoch" placeholder="1712270640" :controls="false" v-focus
-              @keyup="handlerEpoch"></b-numberinput>
+            <b-input v-model="token36" placeholder="ABC123" :controls="false" v-focus @keyup="handlerEpoch"></b-input>
           </b-field>
         </div>
       </div>
@@ -36,13 +35,12 @@
 <script lang="ts" setup>
 import { QrcodeStream } from 'qrcode-reader-vue3'
 
-const { $tokenAEpoch } = useNuxtApp()
 const store = useConfiguracionStore()
 const mostrarCamara = ref(false)
 const horaIngreso = ref<Date | null>(null)
 const usarQR = computed(() => store.configuracion.UsarQR)
 const matricula = ref('')
-const epoch = ref(0)
+const token36 = ref('')
 
 const leerQR = (valor: any) => {
   mostrarCamara.value = false
@@ -59,38 +57,53 @@ const leerQR = (valor: any) => {
     return
   }
   matricula.value = valores[1]
-  epoch.value = valores[2]
-  validarCodigo(epoch.value, true)
+  token36.value = valores[2]
+  validarCodigo(token36.value, true)
 }
 
 const handlerEpoch = (event: KeyboardEvent) => {
-  validarCodigo(epoch.value)
+  validarCodigo(token36.value)
 }
 
 const limpiar = () => {
   matricula.value = ''
-  epoch.value = 0
+  token36.value = ''
   horaIngreso.value = null
 }
 
-const validarCodigo = (valor: number, mostrarError: boolean = false) => {
+const validarCodigo = (valor: string, mostrarError: boolean = false) => {
   let hayError = false
-  if (!valor || valor.toString().length != 10) hayError = true
+  let puntoError = ''
+  let horaIngresoTicket = new Date()
 
-  const fechaHoraIngreso = (valor * 1000) as any
-  if (fechaHoraIngreso! instanceof Date || !isFinite(+fechaHoraIngreso)) {
-    hayError = true
+  const validarErrores = () => {
+    const epoch = parseInt(valor.toString(), 36) * 60
+    if (!epoch || epoch.toString().length != 10) {
+      hayError = true
+      puntoError = 'epoch'
+      return
+    }
+
+    const fechaHoraIngreso = (epoch * 1000) as any
+    if (fechaHoraIngreso! instanceof Date || !isFinite(+fechaHoraIngreso)) {
+      hayError = true
+      puntoError = 'fechaHoraIngreso'
+      return
+    }
+
+    const ahora = new Date()
+    horaIngresoTicket = new Date(parseInt(fechaHoraIngreso))
+    if (!horaIngresoTicket
+      || horaIngresoTicket.toString() === 'Invalid Date'
+      || horaIngresoTicket.getFullYear() < ahora.getFullYear() - 1
+      || horaIngresoTicket > ahora) {
+      hayError = true
+      puntoError = 'horaIngresoTicket'
+      return
+    }
   }
 
-  const ahora = new Date()
-  const horaIngresoTicket = new Date(parseInt(fechaHoraIngreso))
-  if (!horaIngresoTicket
-    || horaIngresoTicket.toString() === 'Invalid Date'
-    || horaIngresoTicket.getFullYear() < ahora.getFullYear() - 1
-    || horaIngresoTicket > ahora) {
-    hayError = true
-  }
-
+  validarErrores()
   if (hayError) {
     if (mostrarError) {
       alert('$QR invalido')
