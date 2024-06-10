@@ -1,73 +1,77 @@
 <template>
-  <div v-if="!hayTarifas">
-    <b-button tag="router-link" to="tarifas" type="is-link">
-      $Ir a configuración...
-    </b-button>
-  </div>
-  <div v-else>
-    <section>
-      <h3 class="subtitle is-3">$Ingreso/Egreso</h3>
-      <div v-if="!!matricula">
-        <h2 class="subtitle is-2">{{ matricula }}</h2>
-      </div>
-      <b-field grouped>
-        <b-field expanded>
-          <template #label>
-            <b-icon icon="clock-in" size="is-medium" type="is-success"></b-icon>
-            $Ingreso
-          </template>
-          <b-datetimepicker v-model="valorHoraIngreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
-            @change="calcularTarifa" :disabled="hayHoraIngreso">
-          </b-datetimepicker>
+  <section>
+    <div v-if="!hayTarifas">
+      <b-button tag="router-link" to="tarifas" type="is-link">
+        $Ir a configuración...
+      </b-button>
+    </div>
+    <div v-else>
+      <section>
+        <h3 class="subtitle is-3">$Ingreso/Egreso</h3>
+        <div v-if="!!matricula">
+          <h2 class="subtitle is-2">{{ matricula }}</h2>
+        </div>
+        <b-field grouped>
+          <b-field expanded>
+            <template #label>
+              <b-icon icon="clock-in" size="is-medium" type="is-success"></b-icon>
+              $Ingreso
+            </template>
+            <b-datetimepicker v-model="valorHoraIngreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
+              @change="calcularTarifa" :disabled="hayHoraIngreso">
+            </b-datetimepicker>
+          </b-field>
+          <b-field>
+            <template #label>
+              <b-icon icon="clock-out" size="is-medium" type="is-danger"></b-icon>
+              $Egreso
+            </template>
+            <b-datetimepicker v-model="valorHoraEgreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
+              @change="calcularTarifa">
+            </b-datetimepicker>
+          </b-field>
         </b-field>
+      </section>
+      <br>
+      <section>
+        <h4 class="subtitle is-4"><b-icon icon="timer" size="is-small" type="is-info"></b-icon>&nbsp;{{
+      tiempoLegible(minutosTotales) }}<span class="is-size-7">(hh:mm)</span></h4>
+        <h4 class="subtitle is-4"><b-icon icon="cash-register" size="is-small" type="is-primary"></b-icon>&nbsp;{{
+      montoTotalLegible }}</h4>
         <b-field>
-          <template #label>
-            <b-icon icon="clock-out" size="is-medium" type="is-danger"></b-icon>
-            $Egreso
-          </template>
-          <b-datetimepicker v-model="valorHoraEgreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
-            @change="calcularTarifa">
-          </b-datetimepicker>
+          <b-switch v-model="verDetalle">$Ver detalle</b-switch>
         </b-field>
-      </b-field>
-    </section>
-    <br>
-    <section>
-      <h4 class="subtitle is-4"><b-icon icon="timer" size="is-small" type="is-info"></b-icon>&nbsp;{{ tiempoLegible(minutosTotales) }}<span class="is-size-7">(hh:mm)</span></h4>
-      <h4 class="subtitle is-4"><b-icon icon="cash-register" size="is-small" type="is-primary"></b-icon>&nbsp;{{ montoTotalLegible }}</h4>
-      <b-field>
-        <b-switch v-model="verDetalle">$Ver detalle</b-switch>
-      </b-field>
-      <table class="table" v-show="verDetalle">
-        <thead>
-          <tr>
-            <th>$Tiempo (hh:mm)</th>
-            <th>$Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in detalleCobro">
-            <td>
-              {{ tiempoLegible(item.tiempo) }}
-            </td>
-            <td>
-              $Q{{ item.subtotal }}
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr class="has-text-weight-bold">
-            <td>
-              {{ tiempoLegible(minutosTotales) }}
-            </td>
-            <td>
-              {{ montoTotalLegible }}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </section>
-  </div>
+        <table class="table" v-show="verDetalle">
+          <thead>
+            <tr>
+              <th>$Tiempo (hh:mm)</th>
+              <th>$Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in detalleCobro">
+              <td>
+                {{ tiempoLegible(item.tiempo) }}
+              </td>
+              <td>
+                $Q{{ item.subtotal }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="has-text-weight-bold">
+              <td>
+                {{ tiempoLegible(minutosTotales) }}
+              </td>
+              <td>
+                {{ montoTotalLegible }}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script lang="ts" setup>
@@ -122,6 +126,7 @@ const calcularTarifa = () => {
   let unidadesTiempo = 0
   let precio = 0
   let minutos = Math.floor(segundos / 60);
+  if (minutos === 0) minutos = 1
   minutosTotales.value = minutos
 
   tarifas.forEach((tarifa) => {
