@@ -46,7 +46,7 @@ function agregarTarifa() {
   store.agregarTarifa({ Tiempo: 0, Precio: 0 })
   nextTick(() => {
     const index = store.configuracion.Tarifas.length - 1
-    const input = inputRefs.value[index]
+    const input = inputRefs.value[index] as HTMLInputElement
     if (input) input.focus()
   })
 }
