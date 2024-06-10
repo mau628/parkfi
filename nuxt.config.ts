@@ -11,7 +11,10 @@ export default defineNuxtConfig({
     upperAfterPrefix: false,
     exclude: ["map"]
   },
-  modules: ['@pinia/nuxt', 'nuxt-lodash', "@nuxtjs/i18n"],
+  modules: [
+    '@pinia/nuxt',
+    'nuxt-lodash',
+    '@nuxtjs/i18n'],
   pinia: {
     storesDirs: ['./stores/**', './custom-folder/stores/**'],
   },

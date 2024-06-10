@@ -10,21 +10,30 @@
     </template>
     <template #start>
       <b-navbar-item tag="router-link" :to="{ path: '/ingreso' }">
-        $Ingreso
+        {{ $t('ingreso') }}
       </b-navbar-item>
       <b-navbar-item tag="router-link" :to="{ path: '/egreso' }">
-        $Egreso
+        {{ $t('egreso') }}
       </b-navbar-item>
     </template>
 
     <template #end>
+      <b-navbar-dropdown :label="$t('idioma')">
+        <b-navbar-item href="#" @click="setLocale('es')">
+          Español
+        </b-navbar-item>
+        <b-navbar-item href="#" @click="setLocale('en')">
+          English
+        </b-navbar-item>
+      </b-navbar-dropdown>
+
       <b-navbar-item tag="router-link" :to="{ path: '/configuracion' }">
-        $Configuración
+        {{ $t('configuracion.titulo') }}
       </b-navbar-item>
       <b-navbar-item tag="div">
         <div class="buttons">
           <a class="button is-success">
-            $Colaborar
+            {{ $t('colaborar') }}
           </a>
         </div>
       </b-navbar-item>
@@ -41,6 +50,7 @@
 
 <script setup lang="ts">
 const store = useConfiguracionStore()
+const { setLocale } = useI18n()
 </script>
 
 <style>
@@ -70,7 +80,7 @@ const store = useConfiguracionStore()
   .printable {
     display: block !important;
     visibility: visible !important;
-    position:absolute !important;
+    position: absolute !important;
     left: 0 !important;
     top: 0 !important;
     margin: 0 !important;

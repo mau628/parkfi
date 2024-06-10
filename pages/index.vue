@@ -1,18 +1,19 @@
 <template>
   <section>
-    <titulo :titulo="nombre" subtitulo="$Servicio de estacionamiento" />
+    <titulo :titulo="nombre" :subtitulo="$t('subtitulo')" />
     <div class="columns">
       <div class="column">
         <div class="card">
           <div class="card-content">
             <p class="title">
-              $Ingreso
+              {{ $t('ingreso') }}
             </p>
             <p class="subtitle">
-              $Registro de ingreso de vehículos <b-icon icon="car" size="is-small"></b-icon> al estacionamiento
+              {{ $t('indice.ingreso.subtitulo1') }} <b-icon icon="car" size="is-small"></b-icon> {{
+      $t('indice.ingreso.subtitulo2') }}
             </p>
-            <b-button type="is-success" icon-left="clock-in" tag="router-link"
-              :to="{ path: '/ingreso' }">$Ingreso</b-button>
+            <b-button type="is-success" icon-left="clock-in" tag="router-link" :to="{ path: '/ingreso' }">{{
+      $t('ingreso') }}</b-button>
           </div>
         </div>
       </div>
@@ -20,13 +21,14 @@
         <div class="card">
           <div class="card-content">
             <p class="title">
-              $Egreso
+              {{ $t('egreso') }}
             </p>
             <p class="subtitle">
-              $Registro de egreso de vehículos <b-icon icon="car" size="is-small"></b-icon> al estacionamiento
+              {{ $t('indice.egreso.subtitulo1') }} <b-icon icon="car" size="is-small"></b-icon> {{
+      $t('indice.egreso.subtitulo2') }}
             </p>
-            <b-button type="is-danger" icon-left="clock-out" tag="router-link"
-              :to="{ path: '/egreso' }">$Egreso</b-button>
+            <b-button type="is-danger" icon-left="clock-out" tag="router-link" :to="{ path: '/egreso' }">{{
+              $t('egreso') }}</b-button>
           </div>
         </div>
       </div>

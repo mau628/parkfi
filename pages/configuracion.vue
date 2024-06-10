@@ -1,20 +1,20 @@
 <template>
   <section>
-    <h3 class="subtitle is-3">$Configuración</h3>
-    <b-field label="$Nombre">
+    <titulo :titulo="$t('configuracion.titulo')" />
+    <b-field :label="$t('configuracion.nombre')">
       <b-input v-model="store.configuracion.Nombre"></b-input>
     </b-field>
     <b-field>
-      <b-switch v-model="store.configuracion.UsarQR">$Usar QR</b-switch>
+      <b-switch v-model="store.configuracion.UsarQR">{{ $t('configuracion.usarQR') }}</b-switch>
     </b-field>
     <b-field>
-      <b-switch v-model="store.configuracion.AutoImprimir">$Imprimir Automaticamente</b-switch>
+      <b-switch v-model="store.configuracion.AutoImprimir">{{ $t('configuracion.imprimirAutomaticamente') }}</b-switch>
     </b-field>
     <table class="table">
       <thead>
         <tr>
-          <th>$Tiempo (Minutos)</th>
-          <th>$Precio</th>
+          <th>{{ $t('configuracion.tiempoMinutos') }}</th>
+          <th>{{ $t('configuracion.precio') }}</th>
           <th></th>
         </tr>
       </thead>
