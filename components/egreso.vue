@@ -1,33 +1,39 @@
 <template>
   <section>
     <titulo />
-    <div class="columns is-mobile is-centered">
-      <div v-if="!!horaIngreso">
+    <b-message type="is-info" has-icon icon="receipt-clock-outline">
+      $Esacanee el código QR <b-icon icon="qrcode" size="is-small"></b-icon> del ticket de ingreso o ingrese el código manualmente <b-icon icon="keyboard" size="is-small"></b-icon>
+    </b-message>
+    <div v-if="!!horaIngreso" class="columns is-mobile is-centered">
+      <div class="column is-7">
         <calculo :hora-ingreso="horaIngreso" :matricula="matricula" />
         <b-button type="is-danger" @click="limpiar" icon-left="eraser">
           $Limpiar
         </b-button>
       </div>
-      <div v-else>
-        <div v-if="usarQR">
-          <b-field>
-            <b-button v-show="!mostrarCamara" type="is-primary" @click="mostrarCamara = true" icon-left="qrcode">
-              $Leer QR
-            </b-button>
-          </b-field>
-          <div v-if="mostrarCamara">
-            <qrcode-stream @decode="leerQR"></qrcode-stream>
-            <b-button type="is-danger" @click="mostrarCamara = false" icon-left="cancel">
-              $Cancelar
-            </b-button>
-          </div>
-        </div>
-        <div v-else>
-          <b-field label="$Código">
-            <b-input v-model="token36" placeholder="ABC123" :controls="false" v-focus @keyup="handlerEpoch"></b-input>
-          </b-field>
-        </div>
+    </div>
+    <div v-else class="columns is-mobile is-centered">
+      <div class="column is-2">
+        <b-field>
+          <b-button v-show="!mostrarCamara" type="is-link" @click="mostrarCamara = true" icon-left="qrcode">
+            $Leer QR
+          </b-button>
+        </b-field>
       </div>
+      <div class="column is-1">
+        <span>$o</span>
+      </div>
+      <div class="column is-2">
+        <b-field message="$Ingrese el código">
+          <b-input v-model="token36" placeholder="ABC123" :controls="false" v-focus @keyup="handlerEpoch" icon="keyboard"></b-input>
+        </b-field>
+      </div>
+    </div>
+    <div v-if="mostrarCamara">
+      <qrcode-stream @decode="leerQR"></qrcode-stream>
+      <b-button type="is-danger" @click="mostrarCamara = false" icon-left="cancel">
+        $Cancelar
+      </b-button>
     </div>
   </section>
 </template>
