@@ -27,9 +27,11 @@
 
       <b-navbar-dropdown :label="$t('idioma')">
         <b-navbar-item href="#" @click="cambiarIdioma('es')">
+          <country-flag country="es" size="small"/>
           Español
         </b-navbar-item>
         <b-navbar-item href="#" @click="cambiarIdioma('en')">
+          <country-flag country="gb" size="small"/>
           English
         </b-navbar-item>
       </b-navbar-dropdown>
@@ -57,7 +59,6 @@
   </b-navbar>
   <div class="block">
     <div class="container">
-      {{ modoOscuro }}
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
