@@ -23,6 +23,7 @@ export default defineI18nConfig(() => ({
         imprimirAutomaticamente: 'Imprimir automáticamente',
         tiempoMinutos: 'Tiempo (minutos)',
         precio: 'Tarifa',
+        mensaje: 'Ingrese los datos de configuración del parqueo. Tiempos, tarifas y otros datos',
       },
 
       indice: {
@@ -79,6 +80,7 @@ export default defineI18nConfig(() => ({
         imprimirAutomaticamente: 'Auto-print',
         tiempoMinutos: 'Time (minutes)',
         precio: 'Rate',
+        mensaje: 'Enter the parking configuration data. Times, rates and other data',
       },
 
       indice: {

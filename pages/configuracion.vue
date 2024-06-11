@@ -1,6 +1,9 @@
 <template>
   <section>
     <titulo :titulo="$t('configuracion.titulo')" />
+    <b-message type="is-info" has-icon icon="cogs">
+      {{ $t('configuracion.mensaje') }}
+    </b-message>
     <b-field :label="$t('configuracion.nombre')">
       <b-input v-model="store.configuracion.Nombre"></b-input>
     </b-field>
