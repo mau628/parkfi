@@ -4,6 +4,7 @@ interface Configuracion {
     UsarQR: boolean;
     AutoImprimir: boolean;
     Idioma: string;
+    Tema: string;
 }
 
 export default Configuracion
