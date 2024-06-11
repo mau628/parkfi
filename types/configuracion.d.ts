@@ -3,6 +3,7 @@ interface Configuracion {
     Nombre: string;
     UsarQR: boolean;
     AutoImprimir: boolean;
+    Idioma: string;
 }
 
 export default Configuracion

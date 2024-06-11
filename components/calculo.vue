@@ -7,27 +7,28 @@
     </div>
     <div v-else>
       <section>
-        <h3 class="subtitle is-3">$Ingreso/Egreso</h3>
+        <h3 class="subtitle is-3">{{ $t('ingreso.titulo') }} / {{ $t('egreso.titulo') }}</h3>
         <div v-if="!!matricula">
+          <b-icon icon="car" size="is-small"></b-icon>
           <h2 class="subtitle is-2">{{ matricula }}</h2>
         </div>
         <b-field grouped>
           <b-field expanded>
             <template #label>
               <b-icon icon="clock-in" size="is-medium" type="is-success"></b-icon>
-              $Ingreso
+              {{ $t('ingreso.titulo') }}
             </template>
-            <b-datetimepicker v-model="valorHoraIngreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
-              @change="calcularTarifa" :disabled="hayHoraIngreso">
+            <b-datetimepicker v-model="valorHoraIngreso" rounded :placeholder="$t('elegir')" icon="calendar-today"
+              inline @change="calcularTarifa" :disabled="hayHoraIngreso" :locale="locale">
             </b-datetimepicker>
           </b-field>
           <b-field>
             <template #label>
               <b-icon icon="clock-out" size="is-medium" type="is-danger"></b-icon>
-              $Egreso
+              {{ $t('egreso.titulo') }}
             </template>
-            <b-datetimepicker v-model="valorHoraEgreso" rounded placeholder="$Elegir..." icon="calendar-today" inline
-              @change="calcularTarifa">
+            <b-datetimepicker v-model="valorHoraEgreso" rounded :placeholder="$t('elegir')" icon="calendar-today" inline
+              @change="calcularTarifa" :locale="locale">
             </b-datetimepicker>
           </b-field>
         </b-field>
@@ -35,17 +36,17 @@
       <br>
       <section>
         <h4 class="subtitle is-4"><b-icon icon="timer" size="is-small" type="is-info"></b-icon>&nbsp;{{
-      tiempoLegible(minutosTotales) }}<span class="is-size-7">(hh:mm)</span></h4>
+      tiempoLegible(minutosTotales) }}&nbsp;<span class="is-size-7">(hh:mm)</span></h4>
         <h4 class="subtitle is-4"><b-icon icon="cash-register" size="is-small" type="is-primary"></b-icon>&nbsp;{{
       montoTotalLegible }}</h4>
         <b-field>
-          <b-switch v-model="verDetalle">$Ver detalle</b-switch>
+          <b-switch v-model="verDetalle">{{ $t('verDetalle') }}</b-switch>
         </b-field>
         <table class="table" v-show="verDetalle">
           <thead>
             <tr>
-              <th>$Tiempo (hh:mm)</th>
-              <th>$Subtotal</th>
+              <th>{{ $t('tiempo') }}&nbsp;(hh:mm)</th>
+              <th>{{ $t('subtotal') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -83,11 +84,12 @@ const props = defineProps({
 })
 
 let estaCargando = true
+const { locale } = useI18n()
 
-let verDetalle = ref(false)
-let minutosTotales = ref(0)
-let valorHoraIngreso = ref<Date>()
-let valorHoraEgreso = ref<Date>()
+const verDetalle = ref(false)
+const minutosTotales = ref(0)
+const valorHoraIngreso = ref<Date>()
+const valorHoraEgreso = ref<Date>()
 
 if (props.horaIngreso) valorHoraIngreso.value = props.horaIngreso
 

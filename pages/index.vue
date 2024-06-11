@@ -6,14 +6,14 @@
         <div class="card">
           <div class="card-content">
             <p class="title">
-              {{ $t('ingreso') }}
+              {{ $t('ingreso.titulo') }}
             </p>
             <p class="subtitle">
               {{ $t('indice.ingreso.subtitulo1') }} <b-icon icon="car" size="is-small"></b-icon> {{
       $t('indice.ingreso.subtitulo2') }}
             </p>
             <b-button type="is-success" icon-left="clock-in" tag="router-link" :to="{ path: '/ingreso' }">{{
-      $t('ingreso') }}</b-button>
+      $t('ingreso.titulo') }}</b-button>
           </div>
         </div>
       </div>
@@ -21,14 +21,14 @@
         <div class="card">
           <div class="card-content">
             <p class="title">
-              {{ $t('egreso') }}
+              {{ $t('egreso.titulo') }}
             </p>
             <p class="subtitle">
               {{ $t('indice.egreso.subtitulo1') }} <b-icon icon="car" size="is-small"></b-icon> {{
       $t('indice.egreso.subtitulo2') }}
             </p>
             <b-button type="is-danger" icon-left="clock-out" tag="router-link" :to="{ path: '/egreso' }">{{
-              $t('egreso') }}</b-button>
+              $t('egreso.titulo') }}</b-button>
           </div>
         </div>
       </div>

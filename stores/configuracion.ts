@@ -11,6 +11,7 @@ function consultarLocalStorage(): Configuracion {
   result.Nombre = result.Nombre || 'Parkfi'
   result.UsarQR = result.UsarQR || false
   result.AutoImprimir = result.AutoImprimir || false
+  result.Idioma = result.Idioma || 'es'
   return result
 }
 

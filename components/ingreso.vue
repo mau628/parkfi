@@ -1,27 +1,38 @@
 <template>
   <section>
-    <titulo subtitulo="$Registro del ingreso" />
+    <titulo :subtitulo="$t('ingreso.subtitulo')" />
     <div class="columns is-mobile is-centered">
       <div class="column is-4-desktop">
-        <h3 class="subtitle is-3">$Ingreso</h3>
+        <h3 class="subtitle is-3">{{ $t('ingreso.titulo') }}</h3>
         <b-field grouped>
-          <b-field label="$Matricula" label-position="on-border">
+          <b-field>
+            <template #label>
+              <b-icon icon="car" size="is-medium" type="is-success"></b-icon>
+              {{ $t('ingreso.matricula') }}
+            </template>
             <b-input v-model.trim="matricula" placeholder="ABC123" v-focus ref="inputMatricula"
               :required="!usarQR"></b-input>
           </b-field>
         </b-field>
-        <b-field label="$Hora de ingreso" label-position="on-border">
-          <b-datetimepicker v-model="horaIngreso" rounded placeholder="$Elegir..." icon="calendar-today" inline>
+        <b-field>
+          <template #label>
+            <b-icon icon="clock-in" size="is-medium" type="is-success"></b-icon>
+            {{ $t('ingreso.titulo') }}
+          </template>
+          <b-datetimepicker v-model="horaIngreso" rounded :placeholder="$t('elegir')" icon="calendar-today" inline
+            :locale="locale">
           </b-datetimepicker>
         </b-field>
       </div>
     </div>
     <div class="columns is-mobile is-centered">
       <div class="column is-2-desktop is-4-mobile">
-        <b-button type="is-primary" @click="generarCodigo" icon-left="receipt-text-clock-outline">$Generar</b-button>
+        <b-button type="is-primary" @click="generarCodigo" icon-left="receipt-text-clock-outline">{{
+      $t('ingreso.generar')
+    }}</b-button>
       </div>
       <div class="column is-2-desktop is-4-mobile">
-        <b-button type="is-danger" @click="limpiarTodo" icon-left="eraser">$Limpiar</b-button>
+        <b-button type="is-danger" @click="limpiarTodo" icon-left="eraser">{{ ($t('limpiar')) }}</b-button>
       </div>
     </div>
 
@@ -46,7 +57,8 @@
                 </span>
               </small>
             </p>
-            <b-button type="is-danger" icon-left="eraser" @click="imprimir" v-if="!autoImprimir">$Imprimir</b-button>
+            <b-button type="is-danger" icon-left="eraser" @click="imprimir" v-if="!autoImprimir">{{ $t('imprimir')
+              }}</b-button>
           </div>
           <div class="card-image" v-if="usarQR">
             <div v-html="svgString"></div>
@@ -61,6 +73,8 @@
 <script lang="ts" setup>
 import { generateSVGString } from '@intosoft/custoqr';
 
+const { locale } = useI18n()
+const { t } = useI18n()
 const store = useConfiguracionStore()
 const horaIngreso = ref<Date | null>(new Date())
 const svgString = ref('')
@@ -112,13 +126,13 @@ const configQR = {
       "bottomLeft": "body"
     }
   }
-} as Config
+} as any
 
 const generarCodigo = () => {
   if (!horaIngreso.value) return
 
   if (!usarQR.value && !matricula.value) {
-    alert('$Matricula requerida')
+    alert(t('errores.matriculaRequerida'))
     return
   }
   else {

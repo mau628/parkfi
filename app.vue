@@ -10,19 +10,19 @@
     </template>
     <template #start>
       <b-navbar-item tag="router-link" :to="{ path: '/ingreso' }">
-        {{ $t('ingreso') }}
+        {{ $t('ingreso.titulo') }}
       </b-navbar-item>
       <b-navbar-item tag="router-link" :to="{ path: '/egreso' }">
-        {{ $t('egreso') }}
+        {{ $t('egreso.titulo') }}
       </b-navbar-item>
     </template>
 
     <template #end>
       <b-navbar-dropdown :label="$t('idioma')">
-        <b-navbar-item href="#" @click="setLocale('es')">
+        <b-navbar-item href="#" @click="cambiarIdioma('es')">
           Español
         </b-navbar-item>
-        <b-navbar-item href="#" @click="setLocale('en')">
+        <b-navbar-item href="#" @click="cambiarIdioma('en')">
           English
         </b-navbar-item>
       </b-navbar-dropdown>
@@ -51,6 +51,11 @@
 <script setup lang="ts">
 const store = useConfiguracionStore()
 const { setLocale } = useI18n()
+
+const cambiarIdioma = (idioma: string) => {
+  setLocale(idioma)
+  store.configuracion.Idioma = idioma
+}
 </script>
 
 <style>
