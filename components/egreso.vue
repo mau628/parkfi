@@ -1,6 +1,6 @@
 <template>
   <section>
-    <titulo />
+    <titulo :subtitulo="$t('egreso.subtitulo')" />
     <b-message type="is-info" has-icon icon="receipt-clock-outline">
       {{ $t('egreso.mensaje1') }}<b-icon icon="qrcode" size="is-small"></b-icon>{{ $t('egreso.mensaje2') }}<b-icon
         icon="keyboard" size="is-small"></b-icon>

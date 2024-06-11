@@ -38,6 +38,7 @@ export default defineI18nConfig(() => ({
 
       egreso: {
         titulo: 'Egreso',
+        subtitulo: 'Registro de egreso de vehículos del estacionamiento',
         mensaje1: 'Esacanee el código QR ',
         mensaje2: ' del ticket de ingreso o ingrese el código manualmente ',
       },
@@ -48,6 +49,7 @@ export default defineI18nConfig(() => ({
         matricula: 'Matrícula',
         generar: 'Generar',
         imprimir: 'Imprimir',
+        mensaje: 'Genere un ticket de ingreso para el vehículo. Ingrese la matrícula y presione el botón "Generar"',
       },
 
       errores: {
@@ -92,6 +94,7 @@ export default defineI18nConfig(() => ({
 
       egreso: {
         titulo: 'Out',
+        subtitulo: 'Vehicle exit registration from the parking lot',
         mensaje1: 'Scan the QR code ',
         mensaje2: ' from the entry ticket or manually enter the code ',
       },
@@ -102,6 +105,7 @@ export default defineI18nConfig(() => ({
         matricula: 'License plate',
         generar: 'Generate',
         imprimir: 'Print',
+        mensaje: 'Generate an entry ticket for the vehicle. Enter the license plate and press the "Generate" button',
       },
 
       errores: {

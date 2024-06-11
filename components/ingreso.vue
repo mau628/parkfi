@@ -1,9 +1,11 @@
 <template>
   <section>
     <titulo :subtitulo="$t('ingreso.subtitulo')" />
+    <b-message type="is-info" has-icon icon="receipt-clock-outline">
+      {{ $t('ingreso.mensaje') }}
+    </b-message>
     <div class="columns is-mobile is-centered">
       <div class="column is-4-desktop">
-        <h3 class="subtitle is-3">{{ $t('ingreso.titulo') }}</h3>
         <b-field grouped>
           <b-field>
             <template #label>
