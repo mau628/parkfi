@@ -5,7 +5,6 @@ export default defineI18nConfig(() => ({
     es: {
       subtitulo: 'Servicio de estacionamiento',
       idioma: 'Idioma',
-      colaborar: 'Colaborar',
       elegir: 'Elegir...',
       verDetalle: 'Ver detalle',
       tiempo: 'Tiempo',
@@ -57,12 +56,21 @@ export default defineI18nConfig(() => ({
         qrInvalido: 'El código QR es inválido',
         parqueoInvalido: 'El parqueo no es válido',
         matriculaRequerida: 'La matrícula es requerida',
+      },
+
+      colaborar: {
+        titulo: 'Colaborar',
+        parte1: 'Este es un proyecto realizado enteramente por ',
+        parte2: ' de manera gratuita. Si deseas colaborar con el proyecto puedes hacerlo a través de',
+        parte3: 'Cualquier aporte, será bien recibido como agradecimiento por el trabajo realizado.',
+        parte4: 'Si deseas colaborar por otro medio o simplemente deseas contactar conmigo, puedes hacerlo a través de email:',
+        parte5: 'Gracias!',
+        parte6: 'El código fuente de este proyecto se encuentra alojado en GitHub.'
       }
     },
     en: {
       subtitulo: 'Parking service',
       idioma: 'Language',
-      colaborar: 'Support us',
       elegir: 'Choose...',
       verDetalle: 'View detail',
       tiempo: 'Time',
@@ -114,6 +122,16 @@ export default defineI18nConfig(() => ({
         qrInvalido: 'The QR code is invalid',
         parqueoInvalido: 'The parking is not valid',
         matriculaRequerida: 'The license plate is required',
+      },
+
+      colaborar: {
+        titulo: 'Collaborate',
+        parte1: 'This is a project carried out entirely by ',
+        parte2: ' for free. If you want to collaborate with the project you can do so through',
+        parte3: 'Any contribution will be well received as a thank you for the work done. Thanks!',
+        parte4: 'If you want to collaborate by other means or simply want to contact me, you can do so through email:',
+        parte5: 'Thanks!',
+        parte6: 'The source code of this project is hosted on GitHub.'
       }
     }
   }

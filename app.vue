@@ -5,7 +5,7 @@
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <b-icon icon="car-brake-parking" type="is-link"></b-icon>&nbsp;
         <span v-if="!!store.configuracion.Nombre">
-          {{ store.configuracion.Nombre }}
+          <strong>{{ store.configuracion.Nombre }}</strong>
         </span>
       </b-navbar-item>
 
@@ -14,10 +14,12 @@
     <template #start>
 
       <b-navbar-item tag="router-link" :to="{ path: '/ingreso' }">
+        <b-icon icon="clock-in" type="is-success" size="is-small"></b-icon>&nbsp;
         {{ $t('ingreso.titulo') }}
       </b-navbar-item>
 
       <b-navbar-item tag="router-link" :to="{ path: '/egreso' }">
+        <b-icon icon="clock-out" type="is-danger" size="is-small"></b-icon>&nbsp;
         {{ $t('egreso.titulo') }}
       </b-navbar-item>
 
@@ -27,11 +29,11 @@
 
       <b-navbar-dropdown :label="$t('idioma')">
         <b-navbar-item href="#" @click="cambiarIdioma('es')">
-          <country-flag country="es" size="small"/>
+          <country-flag country="es" size="small" />
           Español
         </b-navbar-item>
         <b-navbar-item href="#" @click="cambiarIdioma('en')">
-          <country-flag country="gb" size="small"/>
+          <country-flag country="gb" size="small" />
           English
         </b-navbar-item>
       </b-navbar-dropdown>
@@ -43,15 +45,14 @@
       </b-navbar-item>
 
       <b-navbar-item tag="router-link" :to="{ path: '/configuracion' }">
+        <b-icon icon="cogs" size="is-small"></b-icon>&nbsp;
         {{ $t('configuracion.titulo') }}
       </b-navbar-item>
 
       <b-navbar-item tag="div">
-        <div class="buttons">
-          <a class="button is-success">
-            {{ $t('colaborar') }}
-          </a>
-        </div>
+        <b-button type="is-link" @click="mostrarModalColaboracion = true" icon-left="robot-happy">
+          {{ $t('colaborar.titulo') }}
+        </b-button>
       </b-navbar-item>
 
     </template>
@@ -64,6 +65,10 @@
       </NuxtLayout>
     </div>
   </div>
+
+  <b-modal v-model="mostrarModalColaboracion" :width="640" scroll="keep">
+    <colaborar />
+  </b-modal>
 </template>
 
 <script setup lang="ts">
@@ -71,6 +76,7 @@ const store = useConfiguracionStore()
 const { locale, setLocale } = useI18n()
 const themeMediaValue = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
 const modoOscuro = ref(store.configuracion.Tema || themeMediaValue) // Debe agregar la clase theme-dark a la etiqueta html para que funcione
+const mostrarModalColaboracion = ref(false)
 
 const cambiarIdioma = (idioma: string) => {
   console.log(idioma)
