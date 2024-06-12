@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "nuxt-lodash": "^2.5.3",
-    "sass": "^1.74.1"
+    "sass": "^1.74.1",
+    "vue-gtag-next": "^1.14.0"
   }
 }
