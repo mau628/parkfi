@@ -12,9 +12,11 @@ export default defineNuxtConfig({
     exclude: ["map"]
   },
   modules: [
+    '@nuxtjs/i18n',
     '@pinia/nuxt',
     'nuxt-lodash',
-    '@nuxtjs/i18n'],
+    'nuxt-tour',
+  ],
   pinia: {
     storesDirs: ['./stores/**', './custom-folder/stores/**'],
   },

@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts" setup>
-import type Tarifa from '~/types/tarifa';
+import type Tarifa from '~/types/tarifa'
 const { $format } = useNuxtApp()
 
 const props = defineProps({
@@ -128,7 +128,7 @@ const calcularTarifa = () => {
 
   let unidadesTiempo = 0
   let precio = 0
-  let minutos = Math.floor(segundos / 60);
+  let minutos = Math.floor(segundos / 60)
   if (minutos === 0) minutos = 1
   minutosTotales.value = minutos
 
@@ -138,10 +138,10 @@ const calcularTarifa = () => {
     minutos -= tarifa.Tiempo * unidadesTiempo
 
     if (unidadesTiempo > 0) {
-      detalleCobro.value ??= [];
+      detalleCobro.value ??= []
       detalleCobro.value.push({ tiempo: tarifa.Tiempo * unidadesTiempo, precioUnitario: tarifa.Precio, subtotal: unidadesTiempo * tarifa.Precio })
     }
-  });
+  })
   if (minutos > 0) {
     precio += 1 * tarifas[tarifas.length - 1].Precio
     detalleCobro.value.push({ tiempo: minutos, precioUnitario: tarifas[tarifas.length - 1].Precio, subtotal: 1 * tarifas[tarifas.length - 1].Precio })

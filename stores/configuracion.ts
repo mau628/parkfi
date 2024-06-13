@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import type Configuracion from '~/types/configuracion';
-import type Tarifa from '~/types/tarifa';
+import type Configuracion from '~/types/configuracion'
+import type Tarifa from '~/types/tarifa'
 
 const LOCALSTORAGE_KEY = 'configuracion'
 
 function consultarLocalStorage(): Configuracion {
   var result: Configuracion
-  result = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY) || '{}') as Configuracion;
+  result = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY) || '{}') as Configuracion
   result.Tarifas = _sortBy(result.Tarifas, 'Tiempo') as Tarifa[]
   result.Nombre = result.Nombre || 'Parkfi'
   result.UsarQR = result.UsarQR || false
@@ -28,7 +28,7 @@ export const useConfiguracionStore = defineStore('configuracionStore', () => {
     actualizarLocalStorage()
   }
   const quitarTarifa = (index: number) => {
-    configuracion.value.Tarifas.splice(index, 1);
+    configuracion.value.Tarifas.splice(index, 1)
     actualizarLocalStorage()
   }
   const actualizarLocalStorage = () => {

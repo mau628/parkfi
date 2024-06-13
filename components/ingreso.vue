@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts" setup>
-import { generateSVGString } from '@intosoft/custoqr';
+import { generateSVGString } from '@intosoft/custoqr'
 
 const { locale } = useI18n()
 const { t } = useI18n()
@@ -191,7 +191,7 @@ if (usarQR) {
 }
 
 window.onafterprint = (event) => {
-  document.querySelectorAll('.printable').forEach(e => e.remove());
+  document.querySelectorAll('.printable').forEach(e => e.remove())
   limpiarTodo()
 };
 </script>

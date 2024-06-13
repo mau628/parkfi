@@ -69,6 +69,27 @@ export default defineI18nConfig(() => ({
         parte4: 'Si deseas colaborar por otro medio o simplemente deseas contactar conmigo, puedes hacerlo a través de email:',
         parte5: 'Gracias!',
         parte6: 'El código fuente de este proyecto se encuentra alojado en GitHub.'
+      },
+
+      tour: {
+        siguiente: 'Siguiente',
+        anterior: 'Anterior',
+        saltar: 'Saltar',
+        finalizar: 'Finalizar',
+      },
+
+      tourConfiguracion: {
+        titulo1: 'Nombre del Parqueo',
+        paso1: 'Este nombre se mostrará en toda la aplicación así como en el ticket de ingreso y egreso.',
+
+        titulo2: 'Formato de Moneda',
+        paso2: 'El formato de moneda se utilizará para mostrar los precios en la aplicación.',
+
+        titulo3: 'Usar QR',
+        paso3: 'Habilite o deshabilite el uso del código QR para el ingreso y egreso de vehículos.',
+
+        titulo4: 'Imprimir Automáticamente',
+        paso4: 'Habilite o deshabilite la impresión automática de los tickets de ingreso y egreso. Si está habilitada, la impresión se realizará automáticamente al generar el ticket. Es necesario tener una impresora configurada en su dispositivo.',
       }
     },
     en: {
@@ -138,7 +159,29 @@ export default defineI18nConfig(() => ({
         parte4: 'If you want to collaborate by other means or simply want to contact me, you can do so through email:',
         parte5: 'Thanks!',
         parte6: 'The source code of this project is hosted on GitHub.'
+      },
+
+      tour: {
+        siguiente: 'Next',
+        anterior: 'Previous',
+        saltar: 'Skip',
+        finalizar: 'Finish',
+      },
+
+      tourConfiguracion: {
+        titulo1: 'Parking Name',
+        paso1: 'The name will be displayed throughout the application as well as on the entry and exit tickets.',
+
+        titulo2: 'Currency Format',
+        paso2: 'Select the currency format that will be used to display prices in the application.',
+
+        titulo3: 'Use QR',
+        paso3: 'Enable or disable the use of the QR code for vehicle entry and exit.',
+
+        titulo4: 'Auto-print',
+        paso4: 'Enable or disable the automatic printing of entry and exit tickets. If enabled, printing will be done automatically when generating the ticket. It is necessary to have a printer configured on your device.',
       }
+
     }
   }
 }))

@@ -1,15 +1,16 @@
 <template>
   <section>
     <titulo :titulo="$t('configuracion.titulo')" />
+    <tour-guiado :pasos="pasosTour" />
     <b-message type="is-info" has-icon icon="cogs">
       {{ $t('configuracion.mensaje') }}
     </b-message>
 
     <b-field horizontal :label="$t('configuracion.nombre')">
-      <b-input v-model="store.configuracion.Nombre"></b-input>
+      <b-input v-model="store.configuracion.Nombre" name="nombre"></b-input>
     </b-field>
     <b-field horizontal :label="$t('configuracion.locale')">
-      <b-dropdown aria-role="list" v-model="store.configuracion.Moneda">
+      <b-dropdown aria-role="list" v-model="store.configuracion.Moneda" name="moneda">
         <template #trigger="{ active }">
           <b-button :label="store.configuracion.Moneda" type="is-primary"
             :icon-right="active ? 'menu-up' : 'menu-down'" />
@@ -21,11 +22,12 @@
     </b-field>
     <b-field horizontal grouped group-multiline :label="$t('configuracion.opciones')">
       <b-field>
-        <b-switch v-model="store.configuracion.UsarQR">{{ $t('configuracion.usarQR') }}</b-switch>
+        <b-switch v-model="store.configuracion.UsarQR" name="usarQR">{{ $t('configuracion.usarQR') }}</b-switch>
       </b-field>
       <b-field>
-        <b-switch v-model="store.configuracion.AutoImprimir">{{ $t('configuracion.imprimirAutomaticamente')
-          }}</b-switch>
+        <b-switch v-model="store.configuracion.AutoImprimir" name="autoImprimir">{{
+      $t('configuracion.imprimirAutomaticamente')
+    }}</b-switch>
       </b-field>
     </b-field>
 
@@ -65,6 +67,10 @@
 </template>
 
 <script setup lang="ts">
+import type { TourStep } from "#nuxt-tour/props"
+
+const { t } = useI18n()
+const { locale } = useI18n()
 const store = useConfiguracionStore()
 const inputRefs = ref([])
 
@@ -78,4 +84,27 @@ function agregarTarifa() {
     if (input) input.focus()
   })
 }
+
+const pasosTour: TourStep[] = [
+  {
+    target: "[name='nombre']",
+    body: t("tourConfiguracion.paso1") + locale.value,
+    title: t("tourConfiguracion.titulo1")
+  },
+  {
+    target: "[name='moneda']",
+    body: t("tourConfiguracion.paso2"),
+    title: t("tourConfiguracion.titulo2")
+  },
+  {
+    target: "[name='usarQR']",
+    body: t("tourConfiguracion.paso3"),
+    title: t("tourConfiguracion.titulo3")
+  },
+  {
+    target: "[name='autoImprimir']",
+    body: t("tourConfiguracion.paso4"),
+    title: t("tourConfiguracion.titulo4")
+  },
+]
 </script>

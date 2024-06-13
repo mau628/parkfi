@@ -28,7 +28,7 @@
       $t('indice.egreso.subtitulo2') }}
             </p>
             <b-button type="is-danger" icon-left="clock-out" tag="router-link" :to="{ path: '/egreso' }">{{
-              $t('egreso.titulo') }}</b-button>
+      $t('egreso.titulo') }}</b-button>
           </div>
         </div>
       </div>
@@ -39,4 +39,11 @@
 <script lang="ts" setup>
 const store = useConfiguracionStore()
 const nombre = computed(() => store.configuracion.Nombre)
+/*
+const router = useRouter()
+
+if(nombre.value == "Parkfi") {
+  router.push("/configuracion")
+}
+*/
 </script>

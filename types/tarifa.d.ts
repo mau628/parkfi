@@ -1,6 +1,6 @@
 interface Tarifa {
-    Tiempo: number;
-    Precio: number;
+    Tiempo: number
+    Precio: number
 }
 
 export default Tarifa

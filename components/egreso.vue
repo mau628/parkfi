@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 // @ts-ignore
 import { QrcodeStream } from 'qrcode-reader-vue3'
-import { useI18n } from "vue-i18n";
+import { useI18n } from "vue-i18n"
 const { t } = useI18n()
 
 const store = useConfiguracionStore()

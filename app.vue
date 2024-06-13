@@ -75,11 +75,14 @@
 const store = useConfiguracionStore()
 const { locale, setLocale } = useI18n()
 const themeMediaValue = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
-const modoOscuro = ref(store.configuracion.Tema || themeMediaValue) // Debe agregar la clase theme-dark a la etiqueta html para que funcione
+/* DARK MODE
+  Debe agregar la clase theme-dark a la etiqueta html para que funcione.
+  Disponible en bulma 1, sin embargo hay que esperar a que se integre en buefy
+*/
+const modoOscuro = ref(store.configuracion.Tema || themeMediaValue)
 const mostrarModalColaboracion = ref(false)
 
 const cambiarIdioma = (idioma: string) => {
-  console.log(idioma)
   setLocale(idioma)
   store.configuracion.Idioma = idioma
 }
@@ -92,11 +95,6 @@ const cambiarTema = (tema: string) => {
 }
 
 cambiarTema(store.configuracion.Tema)
-
-if (locale.value !== store.configuracion.Idioma) {
-  setLocale(store.configuracion.Idioma)
-}
-
 </script>
 
 <style>
