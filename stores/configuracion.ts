@@ -12,6 +12,7 @@ function consultarLocalStorage(): Configuracion {
   result.UsarQR = result.UsarQR || false
   result.AutoImprimir = result.AutoImprimir || false
   result.Idioma = result.Idioma || 'es'
+  result.Moneda = result.Moneda || 'Quetzal'
   return result
 }
 
@@ -34,5 +35,16 @@ export const useConfiguracionStore = defineStore('configuracionStore', () => {
     guardarLocalStorage(configuracion.value)
   }
 
-  return { configuracion, agregarTarifa, quitarTarifa, actualizarLocalStorage }
+  const monedas: { [id: string]: any } = {
+    Quetzal: {
+      codigo: 'GTQ',
+      locale: 'es-GT',
+    },
+    Dolar: {
+      codigo: 'USD',
+      locale: 'en-US',
+    }
+  }
+
+  return { configuracion, monedas, agregarTarifa, quitarTarifa, actualizarLocalStorage }
 })

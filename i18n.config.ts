@@ -23,6 +23,9 @@ export default defineI18nConfig(() => ({
         tiempoMinutos: 'Tiempo (minutos)',
         precio: 'Tarifa',
         mensaje: 'Ingrese los datos de configuración del parqueo. Tiempos, tarifas y otros datos',
+        locale: 'Formato de moneda',
+        opciones: 'Opciones',
+        tarifas: 'Detalle de Tarifas'
       },
 
       indice: {
@@ -89,6 +92,9 @@ export default defineI18nConfig(() => ({
         tiempoMinutos: 'Time (minutes)',
         precio: 'Rate',
         mensaje: 'Enter the parking configuration data. Times, rates and other data',
+        locale: 'Currency format',
+        opciones: 'Options',
+        tarifas: 'Rate details'
       },
 
       indice: {

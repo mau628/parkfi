@@ -5,6 +5,7 @@ interface Configuracion {
     AutoImprimir: boolean;
     Idioma: string;
     Tema: string;
+    Moneda: string;
 }
 
 export default Configuracion

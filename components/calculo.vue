@@ -55,7 +55,7 @@
                 {{ tiempoLegible(item.tiempo) }}
               </td>
               <td>
-                $Q{{ item.subtotal }}
+                {{ $format(item.subtotal) }}
               </td>
             </tr>
           </tbody>
@@ -77,6 +77,7 @@
 
 <script lang="ts" setup>
 import type Tarifa from '~/types/tarifa';
+const { $format } = useNuxtApp()
 
 const props = defineProps({
   matricula: String,
@@ -100,7 +101,7 @@ const detalleCobro = ref<Array<{ tiempo: number, precioUnitario: number, subtota
 const hayHoraIngreso = computed(() => !!valorHoraIngreso.value)
 const hayValores = computed(() => hayHoraIngreso && valorHoraEgreso.value !== undefined)
 const montoTotalLegible = computed(() => {
-  return `$Q${detalleCobro.value?.reduce((acc, item) => acc + item.subtotal, 0)}`
+  return $format(detalleCobro.value?.reduce((acc, item) => acc + item.subtotal, 0))
 })
 
 watch(valorHoraIngreso, () => calcularTarifa())
