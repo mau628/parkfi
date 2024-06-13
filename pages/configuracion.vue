@@ -1,9 +1,9 @@
 <template>
   <section>
     <titulo :titulo="$t('configuracion.titulo')" />
-    <tour-guiado :pasos="pasosTour" />
     <b-message type="is-info" has-icon icon="cogs">
       {{ $t('configuracion.mensaje') }}
+      <tour-guiado :pasos="pasosTour" nombre="configuracion" />
     </b-message>
 
     <b-field horizontal :label="$t('configuracion.nombre')">
@@ -67,16 +67,13 @@
 </template>
 
 <script setup lang="ts">
-import type { TourStep } from "#nuxt-tour/props"
-
-const { t } = useI18n()
-const { locale } = useI18n()
 const store = useConfiguracionStore()
+const pasos = usePasosStore()
 const inputRefs = ref([])
 
 watch(store, () => store.actualizarLocalStorage(), { deep: true })
 
-function agregarTarifa() {
+const agregarTarifa = () => {
   store.agregarTarifa({ Tiempo: 0, Precio: 0 })
   nextTick(() => {
     const index = store.configuracion.Tarifas.length - 1
@@ -85,26 +82,22 @@ function agregarTarifa() {
   })
 }
 
-const pasosTour: TourStep[] = [
+const pasosTour = ref([
   {
     target: "[name='nombre']",
-    body: t("tourConfiguracion.paso1") + locale.value,
-    title: t("tourConfiguracion.titulo1")
+    content: 'tourConfiguracion.paso1',
   },
   {
     target: "[name='moneda']",
-    body: t("tourConfiguracion.paso2"),
-    title: t("tourConfiguracion.titulo2")
+    content: "tourConfiguracion.paso2",
   },
   {
     target: "[name='usarQR']",
-    body: t("tourConfiguracion.paso3"),
-    title: t("tourConfiguracion.titulo3")
+    content: "tourConfiguracion.paso3",
   },
   {
     target: "[name='autoImprimir']",
-    body: t("tourConfiguracion.paso4"),
-    title: t("tourConfiguracion.titulo4")
+    content: "tourConfiguracion.paso4",
   },
-]
+])
 </script>

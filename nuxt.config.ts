@@ -14,8 +14,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/i18n',
     '@pinia/nuxt',
-    'nuxt-lodash',
-    'nuxt-tour',
+    'nuxt-lodash'
   ],
   pinia: {
     storesDirs: ['./stores/**', './custom-folder/stores/**'],

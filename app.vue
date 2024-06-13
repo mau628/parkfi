@@ -73,7 +73,7 @@
 
 <script setup lang="ts">
 const store = useConfiguracionStore()
-const { locale, setLocale } = useI18n()
+const { setLocale } = useI18n()
 const themeMediaValue = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
 /* DARK MODE
   Debe agregar la clase theme-dark a la etiqueta html para que funcione.

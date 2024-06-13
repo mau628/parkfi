@@ -76,6 +76,7 @@ export default defineI18nConfig(() => ({
         anterior: 'Anterior',
         saltar: 'Saltar',
         finalizar: 'Finalizar',
+        reiniciar: 'Ver instrucciones',
       },
 
       tourConfiguracion: {
@@ -166,6 +167,7 @@ export default defineI18nConfig(() => ({
         anterior: 'Previous',
         saltar: 'Skip',
         finalizar: 'Finish',
+        reiniciar: 'View instructions',
       },
 
       tourConfiguracion: {
