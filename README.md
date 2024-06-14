@@ -1,75 +1,19 @@
-# Nuxt 3 Minimal Starter
+# Parkfi
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Parkfi is a parking management system that allows parking lot owners to manage ins, outs, and payment rates for their parking lots. It can emit tickets using QR codes and calculate parking fees.
 
-## Setup
+This project is a hobby project and can be freely used on [GithubPages](https://mau628.github.io/parkfi/). This was developed using Nuxt and many other libraries.
 
-Make sure to install the dependencies:
+## Installation
 
-```bash
-# npm
-npm install
+- npm install
+- npm run dev
 
-# pnpm
-pnpm install
+## Contributing
 
-# yarn
-yarn install
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
-# bun
-bun install
-```
+## License
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+[GPL-2.0](https://choosealicense.com/licenses/gpl-2.0/)
