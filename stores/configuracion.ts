@@ -6,10 +6,10 @@ const LOCALSTORAGE_KEY = 'configuracion'
 
 function consultarLocalStorage(): Configuracion {
   var result: Configuracion
-  result = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY) || '{Tarifas: { Tiempo: 30, Precio: 10 }}') as Configuracion
+  result = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY) || '{"Tarifas": [{ "Tiempo": 60, "Precio": 10 }] }') as Configuracion
   result.Tarifas = _sortBy(result.Tarifas, 'Tiempo') as Tarifa[]
   result.Nombre = result.Nombre || 'Parkfi'
-  result.UsarQR = result.UsarQR || false
+  result.UsarQR = result.UsarQR || true
   result.AutoImprimir = result.AutoImprimir || false
   result.Idioma = result.Idioma || 'es'
   result.Moneda = result.Moneda || 'Quetzal'
