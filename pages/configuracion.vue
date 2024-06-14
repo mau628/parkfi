@@ -6,11 +6,12 @@
       <tour-guiado :pasos="pasosTour" nombre="configuracion" />
     </b-message>
 
-    <b-field horizontal :label="$t('configuracion.nombre')">
-      <b-input v-model="store.configuracion.Nombre" name="nombre"></b-input>
+    <b-field horizontal :label="$t('configuracion.nombre')" name="nombre">
+      <b-input v-model="store.configuracion.Nombre"></b-input>
     </b-field>
-    <b-field horizontal :label="$t('configuracion.locale')">
-      <b-dropdown aria-role="list" v-model="store.configuracion.Moneda" name="moneda">
+
+    <b-field horizontal :label="$t('configuracion.locale')" name="moneda">
+      <b-dropdown aria-role="list" v-model="store.configuracion.Moneda">
         <template #trigger="{ active }">
           <b-button :label="store.configuracion.Moneda" type="is-primary"
             :icon-right="active ? 'menu-up' : 'menu-down'" />
@@ -20,18 +21,20 @@
         </b-dropdown-item>
       </b-dropdown>
     </b-field>
+
     <b-field horizontal grouped group-multiline :label="$t('configuracion.opciones')">
-      <b-field>
-        <b-switch v-model="store.configuracion.UsarQR" name="usarQR">{{ $t('configuracion.usarQR') }}</b-switch>
+      <b-field name="usarQR">
+        <b-switch v-model="store.configuracion.UsarQR">{{ $t('configuracion.usarQR') }}</b-switch>
       </b-field>
-      <b-field>
-        <b-switch v-model="store.configuracion.AutoImprimir" name="autoImprimir">{{
-      $t('configuracion.imprimirAutomaticamente')
-    }}</b-switch>
+
+      <b-field name="autoImprimir">
+        <b-switch v-model="store.configuracion.AutoImprimir">
+          {{ $t('configuracion.imprimirAutomaticamente') }}
+        </b-switch>
       </b-field>
     </b-field>
 
-    <b-field horizontal :label="$t('configuracion.tarifas')">
+    <b-field horizontal :label="$t('configuracion.tarifas')" name="tarifas">
 
       <table class="table">
         <thead>
@@ -67,8 +70,9 @@
 </template>
 
 <script setup lang="ts">
+import { PasoTour } from '~/types/paso-tour';
+
 const store = useConfiguracionStore()
-const pasos = usePasosStore()
 const inputRefs = ref([])
 
 watch(store, () => store.actualizarLocalStorage(), { deep: true })
@@ -82,22 +86,11 @@ const agregarTarifa = () => {
   })
 }
 
-const pasosTour = ref([
-  {
-    target: "[name='nombre']",
-    content: 'tourConfiguracion.paso1',
-  },
-  {
-    target: "[name='moneda']",
-    content: "tourConfiguracion.paso2",
-  },
-  {
-    target: "[name='usarQR']",
-    content: "tourConfiguracion.paso3",
-  },
-  {
-    target: "[name='autoImprimir']",
-    content: "tourConfiguracion.paso4",
-  },
+const pasosTour = ref<PasoTour[]>([
+  new PasoTour("[name='nombre']", 'tourConfiguracion.paso1'),
+  new PasoTour("[name='moneda']", 'tourConfiguracion.paso2'),
+  new PasoTour("[name='usarQR']", 'tourConfiguracion.paso3'),
+  new PasoTour("[name='autoImprimir']", 'tourConfiguracion.paso4'),
+  new PasoTour("[name='tarifas']", 'tourConfiguracion.paso5')
 ])
 </script>

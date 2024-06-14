@@ -1,6 +1,7 @@
 <template>
   <section>
-    <VTour :steps="store.pasos" ref="tour" :name="props.nombre" v-if="mostrarTour"></VTour>
+    <VTour :steps="pasosStore.pasos" ref="tourComponent" :name="props.nombre" v-if="mostrarTour"
+      :buttonLabels="pasosStore.botones" :highlight="true" @onTourStart="iniciarTour"></VTour>
     <b-button type="is-info" icon-left="shoe-print" size="is-small" rounded @click="iniciar">
       {{ $t('tour.reiniciar') }}
     </b-button>
@@ -8,65 +9,69 @@
 </template>
 
 <script lang="ts" setup>
-const { t, locale } = useI18n()
-const configuracion = useConfiguracionStore()
-const store = usePasosStore()
-const tour = ref();
+import type { PasoTour } from '~/types/paso-tour';
+
+const configuracionStore = useConfiguracionStore()
+const pasosStore = usePasosStore()
+const tourComponent = ref();
+const { t } = useI18n()
+const tourIniciado = ref(false)
+
+const actualizarBotones = () => {
+  pasosStore.botones = {
+    next: t('tour.siguiente'),
+    prev: t('tour.anterior'),
+    skip: t('tour.saltar'),
+    finish: t('tour.finalizar')
+  }
+}
 
 const props = defineProps<{
-  pasos: object[],
+  pasos: PasoTour[],
   nombre: string
 }>()
 
 const iniciar = () => {
-  tour.value.resetTour()
-  tour.value.startTour()
+  if (tourIniciado.value) {
+    tourComponent.value.endTour()
+  }
+  tourComponent.value.resetTour()
+  tourComponent.value.startTour()
 }
-
-onMounted(() => {
-  actualizarPasos()
-  tour.value.startTour()
-});
-
-const idx = ref(0)
 
 const actualizarPasos = () => {
   nextTick(() => {
-    if (store.pasos.length > 0) {
-      store.quitarPasos()
+    if (pasosStore.pasos.length > 0) {
+      pasosStore.quitarPasos()
     }
     props.pasos.forEach(paso => {
-      store.agregarPaso({ target: paso.target, content: t(paso.content) })
+      pasosStore.agregarPaso(paso.Translate(t))
     })
   })
 }
 const mostrarTour = computed(() => {
-  return store.pasos.length > 0
+  return pasosStore.pasos.length > 0
 })
 
-watch(() => configuracion, () => {
-  // FIX para que se actualice el tour
+const iniciarTour = () => {
+  tourIniciado.value = true
+}
+
+watch(() => configuracionStore, () => {
+  // FIX para que se actualice el tour cuando se cambia de idioma.
+  // Al parecer, el modulo de i18n no actualiza las traducciones en tiempo real.
   setTimeout(() => {
     actualizarPasos()
+    actualizarBotones()
   }, 0)
-}, { deep: true })
+},
+  {
+    deep: true
+  })
 
-const pasosA = [{
-  target: "[name='nombre']",
-  content: t('tourConfiguracion.paso1'),
-},
-{
-  target: "[name='moneda']",
-  content: t("tourConfiguracion.paso2"),
-},
-{
-  target: "[name='usarQR']",
-  content: t("tourConfiguracion.paso3"),
-},
-{
-  target: "[name='autoImprimir']",
-  content: t("tourConfiguracion.paso4"),
-},
-]
-
+onMounted(() => {
+  actualizarPasos()
+  actualizarBotones()
+  tourComponent.value.startTour()
+});
 </script>
