@@ -31,7 +31,8 @@ jobs:
           cache: npm
       # npm ci respeta package-lock.json y verifica la integridad de cada paquete
       - run: npm ci
-      - run: NUXT_APP_BASE_URL=/parkfi/ npx nuxt build --preset github_pages
+      # El sitio se sirve en la raíz del dominio propio (parkfi.mau628.com), por eso no se define NUXT_APP_BASE_URL.
+      - run: npx nuxt build --preset github_pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
