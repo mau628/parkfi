@@ -10,7 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@globalhive/vuejs-tour": "^1.6.1",
+    "@globalhive/vuejs-tour": "^3.0.1",
     "@intosoft/custoqr": "^0.0.7",
     "@mdi/font": "^7.4.47",
     "@ntohq/buefy-next": "^0.1.4",
