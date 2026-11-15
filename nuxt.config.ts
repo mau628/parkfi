@@ -4,7 +4,20 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' }
   },
   css: ["~/assets/css/global.scss"],
-  devtools: { enabled: true },
+  // Nuxt DevTools expone un servidor RPC local; solo se habilita en desarrollo.
+  devtools: { enabled: process.env.NODE_ENV === 'development' },
+  i18n: {
+    // El idioma se guarda en el store (configuracion.Idioma) y se aplica en plugins/nuxt-hooks.ts,
+    // por eso no se usan prefijos en las rutas ni detección automática del navegador.
+    strategy: 'no_prefix',
+    defaultLocale: 'es',
+    locales: [
+      { code: 'es', name: 'Español' },
+      { code: 'en', name: 'English' }
+    ],
+    detectBrowserLanguage: false,
+    vueI18n: './i18n.config.ts'
+  },
   lodash: {
     prefix: "_",
     prefixSkip: ["string"],

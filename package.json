@@ -13,20 +13,24 @@
     "@globalhive/vuejs-tour": "^1.6.1",
     "@intosoft/custoqr": "^0.0.7",
     "@mdi/font": "^7.4.47",
-    "@ntohq/buefy-next": "^0.1.2",
-    "@nuxtjs/i18n": "^8.3.1",
+    "@ntohq/buefy-next": "^0.1.4",
+    "@nuxtjs/i18n": "^10.6.0",
     "@pinia/nuxt": "^0.5.1",
-    "nuxt": "^3.16.0",
+    "bulma": "^0.9.4",
+    "nuxt": "^3.21.11",
     "pinia": "^2.1.7",
     "qrcode-reader-vue3": "^3.1.2",
     "typescript": "^5.4.5",
-    "vue": "^3.4.27",
+    "vue": "^3.5.45",
     "vue-country-flag-next": "^2.3.2",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.6.5"
   },
   "devDependencies": {
     "nuxt-lodash": "^2.5.3",
     "sass": "^1.74.1",
     "vue-gtag-next": "^1.14.0"
+  },
+  "engines": {
+    "node": ">=20.11.1"
   }
 }
