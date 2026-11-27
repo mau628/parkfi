@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@globalhive/vuejs-tour": "^1.6.1",
-    "@intosoft/custoqr": "^0.0.7",
+    "@intosoft/custoqr": "^0.0.9",
     "@mdi/font": "^7.4.47",
-    "@ntohq/buefy-next": "^0.1.4",
+    "@ntohq/buefy-next": "^0.2.0",
     "@nuxtjs/i18n": "^10.6.0",
     "@pinia/nuxt": "^0.5.1",
     "bulma": "^0.9.4",
@@ -21,13 +21,13 @@
     "pinia": "^2.1.7",
     "qrcode-reader-vue3": "^3.1.2",
     "typescript": "^5.4.5",
-    "vue": "^3.5.45",
+    "vue": "^3.5.46",
     "vue-country-flag-next": "^2.3.2",
     "vue-router": "^4.6.5"
   },
   "devDependencies": {
     "nuxt-lodash": "^2.5.3",
-    "sass": "^1.74.1",
+    "sass": "^1.108.2",
     "vue-gtag-next": "^1.14.0"
   },
   "engines": {
